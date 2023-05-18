@@ -10,7 +10,7 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   500
 );
-camera.position.set(-10, 30, 30);
+camera.position.set(0, 0.5, 2);
 const renderer = new THREE.WebGL1Renderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -80,6 +80,7 @@ const gltfLoader = new GLTFLoader();
 gltfLoader.load("./assets/data/sinhnhatbacho.glb", (gltf) => {
   scene.add(gltf.scene);
   gltf.scene.scale.set(100, 100, 100);
+  gltf.scene.position.set(0, -0.5, 0);
 });
 
 const controls = new OrbitControls(camera, renderer.domElement);
