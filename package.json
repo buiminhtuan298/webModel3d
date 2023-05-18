@@ -1,0 +1,19 @@
+{
+  "name": "3dmodel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx vite"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cannon-es": "^0.20.0",
+    "three": "^0.152.2"
+  },
+  "devDependencies": {
+    "vite": "^4.3.7"
+  }
+}
