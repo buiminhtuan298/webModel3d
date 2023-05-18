@@ -92,12 +92,13 @@ function animate() {
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.render(scene, camera);
 }
-
+let addd = 20;
 // INIT 3D
 // Check whether the browser has support WebGL
 if (WebGL.isWebGLAvailable()) {
   // Initiate function or other initializations here
   document.getElementById("container").appendChild(renderer.domElement);
+  addd = 2;
   animate();
 } else {
   const warning = WebGL.getWebGLErrorMessage();
