@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import WebGL from "three/addons/capabilities/WebGL.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import * as CANNON from "cannon-es";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 const scene = new THREE.Scene();
@@ -11,7 +10,7 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   500
 );
-camera.position.set(0, 2, 3);
+camera.position.set(-10, 30, 30);
 const renderer = new THREE.WebGL1Renderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -78,7 +77,7 @@ scene.background = new THREE.Color("#A6c098");
 
 const gltfLoader = new GLTFLoader();
 
-gltfLoader.load("/data/sinhnhatbacho.glb", (gltf) => {
+gltfLoader.load("/assets/data/sinhnhatbacho.glb", (gltf) => {
   scene.add(gltf.scene);
   gltf.scene.scale.set(100, 100, 100);
 });
