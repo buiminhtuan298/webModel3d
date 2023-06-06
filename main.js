@@ -37,7 +37,7 @@ const gltfLoader = new GLTFLoader();
 
 let mixer;
 const clock = new THREE.Clock();
-gltfLoader.load("./assets/data/face1k.glb", (gltf) => {
+gltfLoader.load("./assets/data/face2.glb", (gltf) => {
   const model = gltf.scene;
   scene.add(model);
   model.position.set(0, -0.5, 0);
@@ -48,8 +48,13 @@ gltfLoader.load("./assets/data/face1k.glb", (gltf) => {
   animation.play();
 });
 
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.update();
+const control = new OrbitControls(camera, renderer.domElement);
+control.enableDamping = true;
+control.minDistance = 0;
+control.maxDistance = 100;
+control.enablePan = false;
+control.maxPolarAngle = Math.PI / 2 - 0.05;
+control.update();
 
 // ANIMATION
 function animate() {
