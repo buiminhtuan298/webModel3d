@@ -14,73 +14,38 @@ camera.position.set(0, 0.5, 2);
 const renderer = new THREE.WebGL1Renderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-initActionKeyboard();
-
-function initActionKeyboard() {
-  const onKeyDown = function (event) {
-    switch (event.code) {
-      case "ArrowUp":
-      case "KeyW":
-        moveForward = true;
-        break;
-
-      case "ArrowLeft":
-      case "KeyA":
-        moveLeft = true;
-        break;
-
-      case "ArrowDown":
-      case "KeyS":
-        moveBackward = true;
-        break;
-
-      case "ArrowRight":
-      case "KeyD":
-        moveRight = true;
-        break;
-
-      case "Space":
-        canJump = false;
-        break;
-    }
-  };
-
-  const onKeyUp = function (event) {
-    switch (event.code) {
-      case "ArrowUp":
-      case "KeyW":
-        moveForward = false;
-        break;
-
-      case "ArrowLeft":
-      case "KeyA":
-        moveLeft = false;
-        break;
-
-      case "ArrowDown":
-      case "KeyS":
-        moveBackward = false;
-        break;
-
-      case "ArrowRight":
-      case "KeyD":
-        moveRight = false;
-        break;
-    }
-  };
-
-  document.addEventListener("keydown", onKeyDown);
-  document.addEventListener("keyup", onKeyUp);
+function light() {
+  scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+  dirLight.position.set(-60, 100, -10);
+  dirLight.castShadow = true;
+  dirLight.shadow.camera.top = 50;
+  dirLight.shadow.camera.bottom = -50;
+  dirLight.shadow.camera.left = -50;
+  dirLight.shadow.camera.right = 50;
+  dirLight.shadow.camera.near = 0.1;
+  dirLight.shadow.camera.far = 200;
+  dirLight.shadow.mapSize.width = 4096;
+  dirLight.shadow.mapSize.height = 4096;
+  scene.add(dirLight);
 }
+light();
 
 scene.background = new THREE.Color("#A6c098");
 
 const gltfLoader = new GLTFLoader();
 
-gltfLoader.load("./assets/data/sinhnhatbacho.glb", (gltf) => {
-  scene.add(gltf.scene);
-  gltf.scene.scale.set(100, 100, 100);
-  gltf.scene.position.set(0, -0.5, 0);
+let mixer;
+const clock = new THREE.Clock();
+gltfLoader.load("./assets/data/face1k.glb", (gltf) => {
+  const model = gltf.scene;
+  scene.add(model);
+  model.position.set(0, -0.5, 0);
+
+  mixer = new THREE.AnimationMixer(model);
+  const animation = mixer.clipAction(gltf.animations[0]);
+
+  animation.play();
 });
 
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -89,6 +54,9 @@ controls.update();
 // ANIMATION
 function animate() {
   requestAnimationFrame(animate);
+  if (mixer) {
+    mixer.update(clock.getDelta());
+  }
 
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.render(scene, camera);
