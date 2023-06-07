@@ -13,7 +13,7 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.set(0, 0.5, 2);
 const renderer = new THREE.WebGL1Renderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
-
+//aaaa
 function light() {
   scene.add(new THREE.AmbientLight(0xffffff, 0.7));
   const dirLight = new THREE.DirectionalLight(0xffffff, 1);
